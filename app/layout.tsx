@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Nadji — Développeur front-end',
     description: 'Développeur front-end spécialisé en React, Next.js et WordPress.',
-    url: 'https://andji.dev',
+    url: 'https://nadji-portfolio-m6ddezuu7-nadjifs-projects.vercel.app/',
     siteName: 'Nadji — Développeur front-end',
     locale: 'fr_FR',
     type: 'website',
