@@ -1,42 +1,30 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import Image from 'next/image'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Code2, Server, Palette } from 'lucide-react'
+import { useState } from 'react'
 
-const services = [
+const competences = [
   {
-    icon: '/icon-creation-site.svg',
-    title: 'Création de site internet',
-    description: "Je crée votre site de A à Z. Un site clair et professionnel pour présenter votre activité et convaincre vos prospects.",
+    icon: Code2,
+    title: 'Front-end & React',
+    description: "J'intègre vos maquettes et développe des interfaces modernes, performantes et accessibles avec l'écosystème React.",
+    tag: 'Développement moderne',
+    stack: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
   },
   {
-    icon: '/icon-boutique-en-ligne.svg',
-    title: 'Boutique en ligne',
-    description: "Pour vendre vos produits et/ou services avec une boutique simple à gérer au quotidien.",
+    icon: Server,
+    title: 'WordPress & PHP',
+    description: "Développement de thèmes enfants custom from scratch, création de Custom Post Types et intégration de champs ACF pour des sites CMS sur-mesure.",
+    tag: 'CMS & intégration',
+    stack: ['WordPress', 'PHP', 'ACF', 'Astra', 'Contact Form 7'],
   },
   {
-    icon: '/icon-refonte-web.svg',
-    title: 'Refonte web & identitaire',
-    description: "Votre site vieillit ? Je lui donne un coup de jeune, côté design et performance.",
-  },
-]
-
-const stack = [
-  {
-    category: 'Front-end',
-    items: ['React', 'Next.js', 'JavaScript', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-  },
-  {
-    category: 'CMS & Back-end',
-    items: ['Strapi', 'Sanity', 'Node.js', 'REST API'],
-  },
-  {
-    category: 'Outils',
-    items: ['Git', 'GitHub', 'Vercel', 'VS Code'],
-  },
-  {
-    category: 'Design & Créa',
-    items: ['Figma', 'Adobe InDesign', 'Illustrator', 'Photoshop', 'After Effects'],
+    icon: Palette,
+    title: 'Design & Intégration',
+    description: "De la maquette Figma au code HTML/CSS/JS. Je transforme un design en interface responsive, en respectant les bonnes pratiques d'accessibilité et de SEO.",
+    tag: 'Figma to code',
+    stack: ['Figma', 'HTML5', 'CSS3', 'Responsive', 'Accessibilité'],
   },
 ]
 
@@ -50,133 +38,147 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 }
 
-export default function Services() {
+const stackContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.05, delayChildren: 0.05 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { staggerChildren: 0.03, staggerDirection: -1 },
+  },
+}
+
+const stackItem = {
+  hidden: { opacity: 0, y: 8, scale: 0.95 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.25 } },
+  exit: { opacity: 0, y: -4, scale: 0.95, transition: { duration: 0.15 } },
+}
+
+export default function Competences() {
+  const [hoveredCard, setHoveredCard] = useState(null)
+
   return (
-    <section id="services" className="relative bg-white pt-24 pb-24 overflow-hidden">
+    <section id="competences" className="relative bg-white pt-32 pb-32 overflow-hidden">
 
-      {/* Cercle vert pastel — desktop */}
- {/* Demi-cercle vert pastel — desktop / tablette */}
-<div
-  aria-hidden="true"
-  className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 md:w-[1100px] md:h-[1100px] lg:w-[1400px] lg:h-[1400px] rounded-full pointer-events-none"
-  style={{ backgroundColor: '#C9E4DD' }}
-/>
-
-{/* Halo doux mobile uniquement */}
-<div
-  aria-hidden="true"
-  className="md:hidden absolute inset-x-0 top-0 h-[600px] pointer-events-none"
-  style={{
-    background: 'radial-gradient(ellipse 90% 70% at center top, #C9E4DD 0%, rgba(201,228,221,0.6) 40%, rgba(255,255,255,0) 80%)',
-  }}
-/>
-{/* Fondu blanc en bas — estompe le cercle desktop vers la stack */}
-<div
-  aria-hidden="true"
-  className="hidden md:block absolute inset-x-0 bottom-0 h-[500px] pointer-events-none z-[1]"
-  style={{
-    background: 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 30%, rgba(255,255,255,0.95) 65%, rgba(255,255,255,1) 100%)',
-  }}
-/>
+      {/* Halo vert pastel très subtil en fond */}
+      <div
+        aria-hidden="true"
+        className="absolute left-1/2 -translate-x-1/2 top-0 w-[800px] h-[800px] rounded-full pointer-events-none opacity-[0.08] blur-[100px]"
+        style={{ backgroundColor: '#00917e' }}
+      />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
 
-        {/* ============================================ */}
-        {/* PARTIE 1 — Les 3 services                   */}
-        {/* ============================================ */}
-
         {/* En-tête */}
-        <div className="text-center mb-16">
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-black tracking-tight mb-3">
-            Mes services
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-20"
+        >
+          <span className="inline-block font-sans text-xs font-semibold text-brand uppercase tracking-[0.2em] mb-4">
+            Compétences
+          </span>
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-black tracking-tight mb-4">
+            Mes compétences techniques
           </h2>
-          <p className="font-sans text-base text-slate-700">
-            Ce que je peux faire pour vous
+          <p className="font-sans text-base text-slate-600 max-w-xl mx-auto mb-2">
+            Un socle technique polyvalent, nourri par la pratique régulière sur des projets concrets.
           </p>
-        </div>
+          <p className="font-sans text-xs text-brand/70 mt-4">
+            Survolez une carte pour voir les outils utilisés
+          </p>
+        </motion.div>
 
-        {/* Grille services */}
+        {/* Cards compétences avec stack au hover */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 max-w-5xl mx-auto mb-24 md:mb-28"
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
         >
-          {services.map((service) => (
-            <motion.div
-              key={service.title}
-              variants={itemVariants}
-              className="text-center px-4"
-            >
-              <div className="flex justify-center mb-6">
-                <div className="w-16 h-16 flex items-center justify-center">
-                  <Image
-                    src={service.icon}
-                    alt=""
-                    width={64}
-                    height={64}
-                    className="w-full h-full object-contain"
-                  />
+          {competences.map((item, index) => {
+            const Icon = item.icon
+            const isHovered = hoveredCard === index
+
+            return (
+              <motion.div
+                key={item.title}
+                variants={itemVariants}
+                onMouseEnter={() => setHoveredCard(index)}
+                onMouseLeave={() => setHoveredCard(null)}
+                className="group relative bg-white border border-slate-200 hover:border-slate-900 rounded-2xl p-8 transition-all duration-300 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] cursor-default min-h-[320px] flex flex-col"
+              >
+
+                {/* Icône */}
+                <div className="mb-6">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand/10 text-brand group-hover:bg-brand group-hover:text-white transition-colors duration-300">
+                    <Icon className="w-6 h-6" strokeWidth={1.75} />
+                  </div>
                 </div>
-              </div>
-              <h3 className="font-display text-lg font-bold text-brand mb-3 tracking-tight">
-                {service.title}
-              </h3>
-              <p className="font-sans text-sm text-slate-700 leading-relaxed max-w-xs mx-auto">
-                {service.description}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
 
-        {/* ============================================ */}
-        {/* PARTIE 2 — Stack technique (transition fluide depuis le cercle) */}
-        {/* ============================================ */}
-
-        {/* En-tête stack */}
-        <div className="text-center mb-12">
-          <h3 className="font-display text-3xl md:text-4xl font-bold text-black tracking-tight mb-3">
-            Ma stack technique
-          </h3>
-          <p className="font-sans text-base text-slate-600 max-w-xl mx-auto">
-            Les outils et technologies que j'utilise au quotidien pour concevoir vos projets.
-          </p>
-        </div>
-
-        {/* Liste stack — format ligne */}
-        <div className="max-w-4xl mx-auto space-y-6">
-          {stack.map((group, i) => (
-            <motion.div
-              key={group.category}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="flex flex-col md:flex-row md:items-start gap-3 md:gap-6"
-            >
-              {/* Label catégorie */}
-              <div className="md:w-44 md:flex-shrink-0 md:pt-1.5">
-                <span className="font-sans text-[11px] font-semibold tracking-[0.18em] uppercase text-slate-500">
-                  {group.category}
+                {/* Tag */}
+                <span className="font-sans text-[10px] text-slate-500 uppercase tracking-[0.15em] mb-3 block font-semibold">
+                  {item.tag}
                 </span>
-              </div>
 
-              {/* Chips */}
-              <div className="flex flex-wrap gap-2">
-                {group.items.map((item) => (
-                  <span
-                    key={item}
-                    className="font-sans text-sm px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-brand hover:border-brand hover:text-white transition-colors cursor-default"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                {/* Titre */}
+                <h3 className="font-display text-xl font-bold text-black mb-3 tracking-tight">
+                  {item.title}
+                </h3>
 
+                {/* Description / Stack au hover */}
+                <div className="relative flex-1">
+                  <AnimatePresence mode="wait">
+                    {!isHovered ? (
+                      <motion.p
+                        key="description"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="font-sans text-sm text-slate-600 leading-relaxed"
+                      >
+                        {item.description}
+                      </motion.p>
+                    ) : (
+                      <motion.div
+                        key="stack"
+                        variants={stackContainer}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        className="flex flex-col gap-3"
+                      >
+                        <motion.span
+                          variants={stackItem}
+                          className="font-sans text-[10px] text-brand uppercase tracking-[0.2em] font-semibold"
+                        >
+                          Stack utilisée
+                        </motion.span>
+                        <div className="flex flex-wrap gap-2">
+                          {item.stack.map((tech) => (
+                            <motion.span
+                              key={tech}
+                              variants={stackItem}
+                              className="font-sans text-xs px-3 py-1.5 rounded-lg border border-brand/30 bg-brand/10 text-brand font-medium"
+                            >
+                              {tech}
+                            </motion.span>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            )
+          })}
+        </motion.div>
       </div>
     </section>
   )

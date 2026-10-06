@@ -17,8 +17,17 @@ const lexend = Lexend({
 })
 
 export const metadata: Metadata = {
-  title: 'Andji.dev — Développeur React & Next.js',
-  description: 'Développeur front-end freelance spécialisé React et Next.js. Disponible pour missions.',
+  title: 'Nadji — Développeur front-end',
+  description: 'Développeur front-end spécialisé en React, Next.js et WordPress. Je transforme vos maquettes en interfaces performantes et accessibles.',
+  openGraph: {
+    title: 'Nadji — Développeur front-end',
+    description: 'Développeur front-end spécialisé en React, Next.js et WordPress.',
+    url: 'https://andji.dev',
+    siteName: 'Nadji — Développeur front-end',
+    locale: 'fr_FR',
+    type: 'website',
+  },
+
 }
 
 export default function RootLayout({
@@ -32,4 +41,3 @@ export default function RootLayout({
     </html>
   )
 }
-
