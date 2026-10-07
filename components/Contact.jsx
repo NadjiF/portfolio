@@ -51,7 +51,7 @@ export default function Contact() {
           {/* Icônes réseaux : GitHub + LinkedIn */}
           <div className="pt-8 border-t border-zinc-800 flex justify-center gap-8">
             <a
-              href="https://github.com/votre-github"
+              href="https://github.com/NadjiF"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
@@ -61,7 +61,7 @@ export default function Contact() {
               <span className="font-sans text-sm">GitHub</span>
             </a>
             <a
-              href="https://linkedin.com/in/votre-profil"
+              href="https://www.linkedin.com/in/nadji-fali-5a80b2442/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
